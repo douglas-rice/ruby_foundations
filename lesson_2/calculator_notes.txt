@@ -1,0 +1,11 @@
+Pseudocode:
+
+Ask the user for two numbers
+Ask the user for an operation to perform
+Perform the operation on the two numbers
+Output the result.
+
+Two methods to use:
+
+gets
+puts
