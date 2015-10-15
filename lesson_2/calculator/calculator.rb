@@ -1,5 +1,3 @@
-
-
 puts "Welcome to Caculator!"
 
 while true
