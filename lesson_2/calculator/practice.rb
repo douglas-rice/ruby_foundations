@@ -4,16 +4,8 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-def integer?(input)
-  input.to_i.to_s == input
-end
-
-def float?(input)
-  input.to_f.to_s == input
-end
-
-def number?(input)
-  integer?(input) || float?(input)
+def valid_number?(num)
+  num.to_i != 0
 end
 
 def operation(op)
@@ -50,7 +42,7 @@ loop do # main loop
   loop do
     prompt("Enter the first number: ")
     num1 = gets.chomp
-    if number?(num1)
+    if valid_number?(num1)
       break
     else
       prompt("That doesn't look like a real number.")
@@ -60,7 +52,7 @@ loop do # main loop
   loop do
     prompt("Enter the second number: ")
     num2 = gets.chomp
-    if number?(num2)
+    if valid_number?(num2)
       break
     else
       prompt("That doesn't look like a real number.")

@@ -19,6 +19,7 @@ def operation_to_message(op)
   end
 end
 
+system('clear')
 prompt("Welcome to Calculator! Enter your name:")
 
 name = '' # instantiating this var outside the loop so i can reference it later
@@ -84,9 +85,16 @@ What operation would you like to perform?
     end
   end
 
+  system('clear')
+  prompt("#{operation_to_message(operator)} the two numbers.")
+  sleep 1
+  system('clear')
+  prompt("#{operation_to_message(operator)} the two numbers..")
+  sleep 1
+  system('clear')
   prompt("#{operation_to_message(operator)} the two numbers...")
+  sleep 1
   puts ''
-  sleep 1.2 # make it look like calculator is thinking
 
   case operator
 
@@ -103,6 +111,8 @@ What operation would you like to perform?
   end
 
   prompt("The result is #{result}")
+  puts ''
+  sleep 1.2
 
   prompt("Do you want to perform another calculation? ('Y' to calculate again)")
   answer = gets.chomp
