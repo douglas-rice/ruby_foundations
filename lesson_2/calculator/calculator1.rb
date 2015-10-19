@@ -1,4 +1,5 @@
-require 'pry'
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -17,53 +18,54 @@ def number?(input)
 end
 
 def operation(op)
-  case op
+  word = case op
   when '1'
-    return "Adding"
+    "Adding"
   when '2'
-    return "Subracting"
+    "Subracting"
   when '3'
-    return "Multiplying"
+    "Multiplying"
   when '4'
-    return "Dividing"
+    "Dividing"
   end
+  return word
 end
 
 system('clear')
-prompt("Welcome to Calculator! Enter your name: ")
+prompt(MESSAGES['welcome'])
 
 name = ''
 loop do
   name = gets.chomp
   if name.empty?
-    prompt("You must enter a name:")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
 end
-prompt("Hello, #{name}!")
+prompt("Hello #{name}!")
 
 loop do # main loop
   num1 = ''
   num2 = ''
 
   loop do
-    prompt("Enter the first number: ")
+    prompt(MESSAGES['first_num'])
     num1 = gets.chomp
     if number?(num1)
       break
     else
-      prompt("That doesn't look like a real number.")
+      prompt(MESSAGES['valid_num'])
     end
   end
 
   loop do
-    prompt("Enter the second number: ")
+    prompt(MESSAGES['second_num'])
     num2 = gets.chomp
     if number?(num2)
       break
     else
-      prompt("That doesn't look like a real number.")
+      prompt(MESSAGES['valid_num'])
     end
   end
 
@@ -104,7 +106,7 @@ loop do # main loop
 
   prompt("The answer is #{result}")
 
-  prompt("Would you like to perform another calculation? Enter 'yes' or 'no'")
+  prompt(MESSAGES['go_again'])
   ans = gets.chomp
   if ans.downcase == 'y'
     system('clear')
@@ -114,4 +116,5 @@ loop do # main loop
   end
 end
 
-puts "Thanks for using Calculator!"
+prompt(MESSAGES['thanks'])
+
