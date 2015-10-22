@@ -7,15 +7,15 @@ end
 
 def win?(first, second)
   (first == 'r' && second == 's') ||
-  (first == 'r' && second == 'l') ||
-  (first == 's' && second == 'p') ||
-  (first == 's' && second == 'l') ||
-  (first == 'p' && second == 'r') ||
-  (first == 'p' && second == 'sp') ||
-  (first == 'l' && second == 'p') ||
-  (first == 'l' && second == 'sp') ||
-  (first == 'sp' && second == 'r') ||
-  (first == 'sp' && second == 's') 
+    (first == 'r' && second == 'l') ||
+    (first == 's' && second == 'p') ||
+    (first == 's' && second == 'l') ||
+    (first == 'p' && second == 'r') ||
+    (first == 'p' && second == 'sp') ||
+    (first == 'l' && second == 'p') ||
+    (first == 'l' && second == 'sp') ||
+    (first == 'sp' && second == 'r') ||
+    (first == 'sp' && second == 's')
 end
 
 def display_score(player_win_total, computer_win_total)
@@ -30,7 +30,7 @@ end
 system('clear')
 prompt("Welcome to Rock, Paper, Scissors, Lizard, Spock!")
 player_win_total = 0
-computer_win_total= 0
+computer_win_total = 0
 loop do # main loop
   player_choice = ''
   computer_choice = ''
@@ -58,7 +58,7 @@ loop do # main loop
       prompt("Computer chooses #{CHOICES[computer_choice]}, too.")
       prompt("Let's go again...")
       next
-    end 
+    end
   end # end round loop
 
   prompt("You entered #{CHOICES[player_choice]}; Computer chose #{CHOICES[computer_choice]}.")
@@ -88,4 +88,3 @@ loop do # main loop
 end # end main loop
 
 prompt("Thanks for playing Rock, Paper, Scissors, Lizard, Spock!")
-
