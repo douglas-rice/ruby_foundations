@@ -56,7 +56,7 @@ loop do # main loop
       break
     else
       prompt("Computer chooses #{CHOICES[computer_choice]}, too.")
-      prompt("Let's go again...")
+      prompt("It's a tie! Let's go again...")
       next
     end
   end # end round loop
