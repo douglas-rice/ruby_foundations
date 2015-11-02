@@ -38,26 +38,23 @@ loop do # main loop
     loop do # player choice loop
       prompt("Choose rock, paper, scissors, lizard, spock: r/p/s/l/sp")
       player_choice = gets.chomp.downcase
-      if CHOICES.keys.include?(player_choice)
-        break
-      else
+      break if CHOICES.keys.include?(player_choice)
         prompt("That's not a valid choice.")
-      end
     end # end player choice loop
 
     computer_choice = CHOICES.keys.sample
-    if win?(player_choice, computer_choice)
-      prompt("You win!")
-      player_win_total += 1
-      break
-    elsif win?(computer_choice, player_choice)
-      prompt("You lose!")
-      computer_win_total += 1
-      break
-    else
+    if player_choice == computer_choice
       prompt("Computer chooses #{CHOICES[computer_choice]}, too.")
       prompt("It's a tie! Let's go again...")
       next
+    elsif win?(player_choice, computer_choice)
+      prompt("You win!")
+      player_win_total += 1
+      break
+    else
+      prompt("You lose!")
+      computer_win_total += 1
+      break
     end
   end # end round loop
 
@@ -80,11 +77,8 @@ loop do # main loop
 
   prompt("Do you want to play again? 'y' or 'n' ")
   answer = gets.chomp.downcase
-  if answer != 'n'
-    next
-  else
-    break
-  end
+  answer != 'n' ? next : break
+  
 end # end main loop
 
 prompt("Thanks for playing Rock, Paper, Scissors, Lizard, Spock!")
