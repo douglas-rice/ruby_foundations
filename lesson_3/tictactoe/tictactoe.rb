@@ -16,11 +16,15 @@ require 'pry'
 INTIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
+                [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
+                [[1, 5, 9], [3, 5, 7]] # diags
 
 def prompt(msg)
   puts "=> #{msg}"
 end
 
+# rubocop:disable Metrics/AbcSize
 def display_board(board)
   system 'clear'
   puts "You are #{PLAYER_MARKER}'s. Computer is #{COMPUTER_MARKER}'s."
@@ -38,6 +42,7 @@ def display_board(board)
   puts "     |     |"
   puts ""
 end
+# rubocop:enable Metrics/AbcSize
 
 def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INTIAL_MARKER }
@@ -52,12 +57,17 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt("Choose a square (#{empty_squares(brd).join(', ')}):")
+    prompt("Choose a square (#{joinor(empty_squares(brd), ', ')})")
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt("Sorry, that's not a valid choice.")
   end
   brd[square] = PLAYER_MARKER
+end
+
+def joinor(arr, delimiter, word='or')
+  arr[-1] = "#{word} #{arr.last}" if arr.size > 1
+  arr.join(delimiter)
 end
 
 def computer_places_piece!(brd)
@@ -66,7 +76,9 @@ def computer_places_piece!(brd)
 end
 
 def board_full?(brd)
-  empty_squares(brd).empty?
+  if empty_squares(brd).empty?
+    return true
+  end
 end
 
 def someone_won?(brd)
@@ -74,10 +86,7 @@ def someone_won?(brd)
 end
 
 def detect_winner(brd)
-  winning_lines = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
-                  [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
-                  [[1, 5, 9], [3, 5, 7]] # diags
-  winning_lines.each do |chunk|
+  WINNING_LINES.each do |chunk|
     if brd[chunk[0]] == PLAYER_MARKER &&
        brd[chunk[1]] == PLAYER_MARKER &&
        brd[chunk[2]] == PLAYER_MARKER
@@ -90,6 +99,10 @@ def detect_winner(brd)
   end
   nil
 end
+
+player_win_total = 0
+computer_win_total = 0
+tie_total = 0
 
 loop do # main loop
   board = initialize_board
@@ -112,9 +125,27 @@ loop do # main loop
     prompt("It's a tie!")
   end
 
+  winner = detect_winner(board)
+  if winner == "Player"
+    player_win_total += 1
+  elsif winner == "Computer"
+    computer_win_total += 1
+  else
+    tie_total += 1
+  end
+      
+  prompt("Player has won #{player_win_total} games.")
+  prompt("Computer has won #{computer_win_total} games.")
+  prompt("There have been #{tie_total} ties.")
+
+  if player_win_total > 2 || computer_win_total > 2
+    prompt("#{detect_winner(board)} is the first to 3 games!")
+    break
+  end
+
   prompt("Play again? (y or n)")
   answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  break unless answer.downcase.start_with?('y') 
 end # end of main loop
 
 prompt("Thanks for playing Tic Tac Toe! Goodbye.")
