@@ -1,1 +1,1 @@
-Kernel.puts("hello world")
+Kernel.puts("Hello world")
